@@ -106,6 +106,8 @@ module.exports = function (app) {
   });
   //UPDATE INFO DETAIl
   app.put("/todo-detail/:id", urlencodedParser, function (req, res) {
+    console.log("entrou PUT");
+    const id = req.params.id;
     Todo.findByIdAndUpdate(id, req.body, function (err, data) {
       if (err) throw err;
       res.render("todo-detail", { todos: data });

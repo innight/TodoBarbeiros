@@ -5,6 +5,8 @@ const hostname = "localhost";
 const port = 3000;
 //static files
 app.use(express.static(__dirname + "/public"));
+app.use("todo-detail", express.static(__dirname + "/public"));
+
 //set up template engine
 
 app.set("view engine", "ejs");
