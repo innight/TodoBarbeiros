@@ -8,7 +8,7 @@
       My todo App
     </h1>
     <div id="todo-table">
-      <form>
+      <form id="form-insert">
         <input type="text" name="item" placeholder="Add new item" required />
         <button type="submit">Add Item</button>
         <button type="submit">Search</button>
@@ -19,10 +19,11 @@
         </tr>
         <% for(var i =0;i< todos.length;i++) { %>
         <tr>
-          <td><%= todos[i].id %></td>
           <td><%= todos[i].item %></td>
           <td><a href="/todo-detail/<%=todos[i].id%>">EDITAR</a></td>
-          <td><a href="">APAGAR</a></td>
+          <td class="delete" id="<%=todos[i].id%>">
+            <a href="/todo">APAGAR</a>
+          </td>
           <% } %>
         </tr>
       </table>

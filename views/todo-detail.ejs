@@ -15,25 +15,6 @@
       integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
       crossorigin="anonymous"
     ></script>
-    <script>
-      $(document).ready(function () {
-        $("#update-form").on("submit", function () {
-          console.log("oasdsadas");
-          var item = $("form input");
-          var todo = { item: item.val() };
-
-          $.ajax({
-            type: "PUT",
-            url: "/todo-detail/",
-            data: todo,
-            success: function (data) {
-              //do something with the data via front-end framework
-              location.reload();
-            },
-          });
-          return false;
-        });
-      });
-    </script>
+    <script src="assets/todo-list.js"></script>
   </body>
 </html>

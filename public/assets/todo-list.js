@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("form").on("submit", function () {
+  $("#form-insert").on("submit", function () {
     var item = $("form input");
     var todo = { item: item.val() };
 
@@ -16,8 +16,8 @@ $(document).ready(function () {
     return false;
   });
 
-  $("td").click(function () {
-    var id = $(this).text();
+  $(".delete").click(function () {
+    var id = $(this).attr("id");
     //console.log($(this).text());
     //var item = $(this).text().replace(/ /g, "-");
     $.ajax({
@@ -31,7 +31,6 @@ $(document).ready(function () {
   });
 
   $("#update-form").on("submit", function () {
-    console.log("oasdsadas");
     var item = $("form input");
     var todo = { item: item.val() };
 

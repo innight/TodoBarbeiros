@@ -5,6 +5,7 @@ const { urlencoded } = require("body-parser");
 const { response } = require("express");
 
 mongoose.set("useUnifiedTopology", true);
+mongoose.set("useFindAndModify", false);
 mongoose.connect(
   "mongodb+srv://jsemedo:Password01@cluster0-lj9mw.mongodb.net/test?retryWrites=true&w=majority",
   { useNewUrlParser: true }
@@ -50,6 +51,7 @@ var itemTwo = BarbeiroShop({
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 module.exports = function (app) {
+  /*
   app.get("/barbeiro/", function (req, res) {
     BarbeiroShop.find({}, function (err, data) {
       if (err) throw err;
@@ -67,14 +69,8 @@ module.exports = function (app) {
       res.json({ barbeiroShops: data });
     });
   });
-
-  //INSERT FORM
-  app.post("/barbeiro", urlencodedParser, function (req, res) {
-    var newBarbeiro = BarbeiroShop(req.body).save(function (err, data) {
-      if (err) throw err;
-      res.json(data);
-    });
-  });
+*/
+  //READ INFO
   app.get("/todo", function (req, res) {
     Todo.find({}, function (err, data) {
       if (err) throw err;
@@ -82,67 +78,37 @@ module.exports = function (app) {
       res.render("todo", { todos: data });
     });
   });
-
-  app.delete("/barbeiro/", function (req, res) {
-    Todo.find({ item: req.params.item.replace(/\-/g, " ") }).deleteOne(
-      function (err, data) {
-        if (err) console.log(err);
-        res.json(data);
-      }
-    );
-  });
-
+  //INSERT FORM
   app.post("/todo", urlencodedParser, function (req, res) {
     var newTodo = Todo(req.body).save(function (err, data) {
       if (err) throw err;
       res.json(data);
     });
-    /*
-    var todo = new Todo(req.body);
-    try {
-      todo.save();
-      res.status(201).send(todo);
-    } catch (e) {
-      res.status(500).send(e);
-    }
-    */
   });
+  //DELETE FORM
 
   app.delete("/todo/:id", function (req, res) {
     const id = req.params.id;
-    console.log(id);
     Todo.findById(id).deleteOne(function (err, data) {
       if (err) console.log(err);
       res.json(data);
     });
   });
+
+  //READ INFO DETAIl
   app.get("/todo-detail/:id", function (req, res) {
     const id = req.params.id;
+
     Todo.findById(id, function (err, data) {
       if (err) throw err;
       res.render("todo-detail", { todos: data });
     });
   });
-
+  //UPDATE INFO DETAIl
   app.put("/todo-detail/:id", urlencodedParser, function (req, res) {
-    const id = req.params.id;
     Todo.findByIdAndUpdate(id, req.body, function (err, data) {
       if (err) throw err;
-      console.log("entrou" + id);
       res.render("todo-detail", { todos: data });
     });
   });
 };
-
-/*
-const blog_details = (req, res) => {
-  const id = req.params.id;
-  Blog.findById(id)
-    .then((result) => {
-      res.render("blogs/details", { blog: result, title: "Blog Details" });
-    })
-    .catch((err) => {
-      res.status(404).render("404", { title: "Blog not Found" });
-    });
-};
-*/
