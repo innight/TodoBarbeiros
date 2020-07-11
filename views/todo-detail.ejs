@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Todo List</title>
+    <link href="assets/styles.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <form action="/todo-detail/<%= todos.id %>">
+      <input type="text" placeholder="<%= todos.id %>" />
+
+      <input type="text" name="item" placeholder=" <%= todos.item %>" />
+      <button id="update-form" type="submit">Submit</button>
+    </form>
+    <script
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#update-form").on("submit", function () {
+          console.log("oasdsadas");
+          var item = $("form input");
+          var todo = { item: item.val() };
+
+          $.ajax({
+            type: "PUT",
+            url: "/todo-detail/",
+            data: todo,
+            success: function (data) {
+              //do something with the data via front-end framework
+              location.reload();
+            },
+          });
+          return false;
+        });
+      });
+    </script>
+  </body>
+</html>
